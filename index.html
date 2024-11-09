@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
 </head>
-<style>/* Mobile styles */
+<style>
     @media (max-width: 640px) {
         body {
             font-size: 16px;
@@ -552,7 +552,7 @@
             sortTasks(sortBy);
         
             const taskList = document.getElementById('taskList');
-            taskList.innerHTML = '';
+            taskList.innerHTML = ''; 
         
             tasks.forEach((task, index) => {
                 const taskItem = document.createElement('div');
@@ -581,6 +581,13 @@
                                     <p class="font-semibold">${getDifficultyStars(task.difficulty)}</p>
                                 </div>
                             </div>
+                            <div class="mt-4">
+                                <h3 class="font-semibold text-lg">Subtasks</h3>
+                                ${renderSubtasks(task.subtasks, index)}
+                                <button onclick="addSubtaskToTask(${index})" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Add Subtask
+                                </button>
+                            </div>
                         </div>
                         <div class="flex space-x-2">
                             <button onclick="editTask(${index})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -596,9 +603,8 @@
                 taskList.appendChild(taskItem);
             });
         
-            feather.replace(); // Ensure feather icons are replaced
+            feather.replace(); 
         }
-        
         function editSubtask(taskIndex, subtaskIndex) {
             const subtask = tasks[taskIndex].subtasks[subtaskIndex];
 
