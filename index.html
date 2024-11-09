@@ -49,7 +49,7 @@
             <div class="help-page active" data-page="1">
                 <div class="grid md:grid-cols-2 h-full">
                     <div class="bg-gradient-to-br from-blue-500 to-purple-600 p-8 flex flex-col justify-center text-white">
-                        <h2 class="text-4xl font-bold mb-4">Welcome to TaskMaster</h2>
+                        <h2 class="text-4xl font-bold mb-4">Welcome to To-Do!</h2>
                         <p class="text-xl mb-6">Your ultimate productivity companion designed to transform how you manage tasks and achieve goals.</p>
                         <div class="flex items-center space-x-4">
                             <div class="bg-white/20 p-3 rounded-full">
@@ -72,7 +72,7 @@
                                 autoplay>
                             </lottie-player>
                             <h3 class="text-2xl font-bold mb-4">Ready to Boost Productivity?</h3>
-                            <p class="mb-6 text-gray-600">Let's explore the powerful features of TaskMaster</p>
+                            <p class="mb-6 text-gray-600">Let's explore the powerful features of this To-Do app!</p>
                             <button onclick="changeHelpPage(2)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
                                 Get Started
                             </button>
@@ -552,7 +552,7 @@
             sortTasks(sortBy);
         
             const taskList = document.getElementById('taskList');
-            taskList.innerHTML = ''; 
+            taskList.innerHTML = '';
         
             tasks.forEach((task, index) => {
                 const taskItem = document.createElement('div');
@@ -596,6 +596,14 @@
                             <button onclick="removeTask(${index})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 <i data-feather="trash-2" class="w-4 h-4"></i>
                             </button>
+                            <div class="relative group">
+                                <button onclick="toggleCompleteTask(${index})" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                                    ${task.completed ? '<i data-feather="check-circle" class="w-4 h-4"></i>' : '<i data-feather="circle" class="w-4 h-4"></i>'}
+                                </button>
+                                <span class="absolute left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-700 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100">
+                                    Complete a task by clicking
+                                </span>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -605,6 +613,12 @@
         
             feather.replace(); 
         }
+        function toggleCompleteTask(index) {
+            tasks[index].completed = !tasks[index].completed;
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+        
         function editSubtask(taskIndex, subtaskIndex) {
             const subtask = tasks[taskIndex].subtasks[subtaskIndex];
 
